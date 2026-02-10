@@ -10,8 +10,11 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Geist-Regular"],
+        Medium: ["Geist-Medium"],
+        SemiBold: ["Geist-SemiBold"],
         bold: ["Geist-Bold"],
         black: ["Geist-Black"],
+
       },
     },
   },
