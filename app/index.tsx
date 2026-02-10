@@ -22,14 +22,18 @@ export default function Page() {
           Hey, I’m Noufal!
         </Text>
         <Text
-          className="text-zinc-400 text-base leading-6"
+          className="text-zinc-400 text-base leading-6 mb-4"
           style={{ fontFamily: "Geist-Regular" }}
         >
-          I’m a <Text className="text-white">Graphic Designer</Text> and a{" "}
-          <Text className="text-white">Self-taught Engineer</Text>. I spend my
-          time leading design teams, building backend APIs with Python, and
-          tinkering with Arch Linux. I prefer logic over dogmas and clean code
-          over complex designs.
+          I’m a <Text className="text-white">Software Engineer</Text> passionate
+          about building scalable backend systems with{" "}
+          <Text className="text-white">Python & Django</Text>. I love tinkering with{" "}
+          <Text className="text-white">Linux</Text> and automating workflows.
+        </Text>
+        <Text className="text-zinc-400 text-base leading-6">
+          With 5 years of experience leading creative teams, I bring a unique
+          problem-solving mindset to engineering—focusing on logic, efficiency, and
+          clean code.
         </Text>
       </View>
     </View>
