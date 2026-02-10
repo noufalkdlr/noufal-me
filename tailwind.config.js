@@ -1,16 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./App.{js,jsx,ts,tsx}", "./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./App.{js,jsx,ts,tsx}",
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+  ],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Geist_400Regular'], 
-        medium: ['Geist_500Medium'],
-        bold: ['Geist_700Bold'],
-        black: ['Geist_900Black'],
-      }
+        sans: ["Geist-Regular"],
+        bold: ["Geist-Bold"],
+        black: ["Geist-Black"],
+      },
     },
   },
   plugins: [],
-}
+};
