@@ -16,13 +16,13 @@ export default function Page() {
     <View className="flex-1 bg-black ">
       <View className="flex-1 w-full max-w-2xl mx-auto px-4 py-8">
         <Text
-          className="text-white text-4xl mb-4"
+          className="text-white text-4xl md:text-5xl mb-4"
           style={{ fontFamily: "Geist-Bold" }}
         >
           Hey, I’m Noufal!
         </Text>
         <Text
-          className="text-zinc-400 text-base leading-6 mb-4"
+          className="text-zinc-400 text-base md:text-lg leading-6 mb-4"
           style={{ fontFamily: "Geist-Regular" }}
         >
           I’m a <Text className="text-white">Software Engineer</Text> passionate
@@ -30,7 +30,9 @@ export default function Page() {
           <Text className="text-white">Python & Django</Text>. I love tinkering with{" "}
           <Text className="text-white">Linux</Text> and automating workflows.
         </Text>
-        <Text className="text-zinc-400 text-base leading-6">
+        <Text className="text-zinc-400 text-base md:text-lg leading-6"
+          style={{ fontFamily: "Geist-Regular" }}
+        >
           With 5 years of experience leading creative teams, I bring a unique
           problem-solving mindset to engineering—focusing on logic, efficiency, and
           clean code.
