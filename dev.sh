@@ -8,7 +8,7 @@
 set -e
 
 ROOT="$(dirname "$(readlink -f "$0")")"
-PORT="${1:-8000}"
+PORT="${1:-3000}"
 
 cd "$ROOT"
 
