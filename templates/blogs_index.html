@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs | Mohammed Noufal</title>
+    <meta
+      name="description"
+      content="Articles and thoughts by Mohammed Noufal."
+    />
+    <meta name="author" content="Mohammed Noufal" />
+    <link rel="canonical" href="https://noufal.me/blogs/" />
+
+    <meta property="og:title" content="Blogs | Mohammed Noufal" />
+    <meta
+      property="og:description"
+      content="Articles and thoughts by Mohammed Noufal."
+    />
+    <meta property="og:url" content="https://noufal.me/blogs/" />
+    <meta property="og:site_name" content="Mohammed Noufal" />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="page page--top">
+      <div class="container container--wide">
+        <a href="/" class="back-link">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back
+        </a>
+
+        <header class="blogs-header">
+          <h1>Blogs</h1>
+          <p>Articles and thoughts by Mohammed Noufal</p>
+        </header>
+
+        <div class="blogs-controls">
+          <input
+            type="text"
+            class="search-input"
+            id="search-input"
+            placeholder="Search blogs..."
+            autocomplete="off"
+          />
+          <div class="category-filter" id="category-filter">
+            <button class="category-pill is-active" data-category="all">
+              All
+            </button>
+            {{ each:categories }}
+            <button class="category-pill" data-category="{{ category }}">
+              {{ category }}
+            </button>
+            {{ /each }}
+          </div>
+        </div>
+
+        <div class="blog-list" id="blog-list"></div>
+        <p class="blogs-empty" id="blogs-empty" hidden>
+          No blogs match your search.
+        </p>
+
+        <nav class="pagination" id="pagination"></nav>
+
+        {{ include:_footer.html }}
+      </div>
+    </div>
+
+    <script id="blogs-data" type="application/json">
+      {{ blogs_json }}
+    </script>
+    <script src="/static/js/blogs.js"></script>
+  </body>
+</html>

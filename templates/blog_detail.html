@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} | Mohammed Noufal</title>
+    <meta name="description" content="{{ description }}" />
+    <meta name="author" content="{{ author }}" />
+    <link rel="canonical" href="https://noufal.me/blogs/{{ slug }}/" />
+
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:url" content="https://noufal.me/blogs/{{ slug }}/" />
+    <meta property="og:site_name" content="Mohammed Noufal" />
+    <meta property="og:image" content="https://noufal.me{{ thumbnail }}" />
+    <meta property="og:type" content="article" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="twitter:image" content="https://noufal.me{{ thumbnail }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="page page--top">
+      <div class="container container--wide">
+        <a href="/blogs/" class="back-link">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to blogs
+        </a>
+
+        <header class="blog-detail-header">
+          <div class="blog-detail-meta">
+            <span>{{ author }}</span>
+            <span>&bull;</span>
+            <time datetime="{{ date }}">{{ formatted_date }}</time>
+            <span>&bull;</span>
+            <span>{{ category }}</span>
+          </div>
+          <h1>{{ title }}</h1>
+          <p class="blog-detail-desc">{{ description }}</p>
+        </header>
+
+        <div class="blog-detail-thumb">
+          <img src="{{ thumbnail }}" alt="{{ title }}" />
+        </div>
+
+        <article class="blog-content">{{ content }}</article>
+
+        {{ include:_footer.html }}
+      </div>
+    </div>
+  </body>
+</html>

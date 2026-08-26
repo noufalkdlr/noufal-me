@@ -22,7 +22,7 @@ fi
 
 # 2. Build
 echo "Building..."
-python3 build/build.py
+uv run build/build.py
 
 # 3. Serve
 echo "Serving dist/ at http://localhost:$PORT"
