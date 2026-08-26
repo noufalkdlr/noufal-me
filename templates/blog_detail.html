@@ -49,11 +49,15 @@
 
         <header class="blog-detail-header">
           <div class="blog-detail-meta">
-            <span>{{ author }}</span>
-            <span>&bull;</span>
-            <time datetime="{{ date }}">{{ formatted_date }}</time>
-            <span>&bull;</span>
-            <span>{{ category }}</span>
+            <div class="author-avatar">
+              <img src="/static/images/profile.webp" alt="{{ author }}" />
+            </div>
+            <div>
+              <p class="author-name">{{ author }}</p>
+              <time class="author-date" datetime="{{ date }}"
+                >{{ formatted_date }}</time
+              >
+            </div>
           </div>
           <h1>{{ title }}</h1>
           <p class="blog-detail-desc">{{ description }}</p>
