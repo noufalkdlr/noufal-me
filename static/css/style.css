@@ -472,6 +472,7 @@ a {
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
+  width: fit-content;
 }
 
 .author-avatar {
