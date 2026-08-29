@@ -170,6 +170,18 @@ a {
   font-weight: 500;
 }
 
+.bio a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--foreground);
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.bio a:hover {
+  opacity: 0.8;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
