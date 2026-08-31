@@ -214,14 +214,58 @@ def build_blog_detail_pages(blogs: list[dict]) -> None:
         (out_dir / "index.html").write_text(html, encoding="utf-8")
 
 
+def build_robots_txt() -> None:
+    src = ROOT / "robots.txt"
+    if src.exists():
+        shutil.copy(src, DIST / "robots.txt")
+
+
+def build_sitemap(blogs: list[dict]) -> None:
+    base = "https://noufal.me"
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    urls = [
+        {"loc": f"{base}/", "lastmod": today, "priority": "1.0"},
+        {"loc": f"{base}/blogs/", "lastmod": today, "priority": "0.8"},
+    ]
+    for b in blogs:
+        urls.append(
+            {
+                "loc": f"{base}/blogs/{b['slug']}/",
+                "lastmod": b["date"] or today,
+                "priority": "0.6",
+            }
+        )
+
+    entries = "\n".join(
+        f"  <url>\n"
+        f"    <loc>{u['loc']}</loc>\n"
+        f"    <lastmod>{u['lastmod']}</lastmod>\n"
+        f"    <priority>{u['priority']}</priority>\n"
+        f"  </url>"
+        for u in urls
+    )
+
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{entries}\n"
+        "</urlset>\n"
+    )
+
+    (DIST / "sitemap.xml").write_text(xml, encoding="utf-8")
+
+
 def main() -> None:
     clean_dist()
     copy_static()
     build_home_page()
+    build_robots_txt()
 
     blogs = load_blogs()
     build_blogs_index(blogs)
     build_blog_detail_pages(blogs)
+    build_sitemap(blogs)
 
     print(f"Build complete → {DIST} ({len(blogs)} blog posts)")
 
