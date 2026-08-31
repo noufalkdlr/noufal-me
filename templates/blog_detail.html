@@ -28,6 +28,26 @@
     />
 
     <link rel="stylesheet" href="/static/css/style.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ title }}",
+        "description": "{{ description }}",
+        "image": "https://noufal.me{{ thumbnail }}",
+        "datePublished": "{{ date }}",
+        "author": {
+          "@type": "Person",
+          "name": "{{ author }}",
+          "url": "https://noufal.me/"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://noufal.me/blogs/{{ slug }}/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="page page--top">
