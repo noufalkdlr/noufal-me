@@ -20,6 +20,7 @@ Blog posts are Markdown files with YAML-ish frontmatter in content/blogs/.
 import json
 import re
 import shutil
+import struct
 from datetime import datetime
 from pathlib import Path
 
@@ -109,6 +110,31 @@ def format_date(date_str: str) -> str:
         return date_str
 
 
+def get_webp_dimensions(path: Path) -> tuple[int, int]:
+    """Read width/height from a WebP file header without extra deps."""
+    try:
+        with open(path, "rb") as f:
+            header = f.read(30)
+        if header[0:4] != b"RIFF" or header[8:12] != b"WEBP":
+            return (0, 0)
+        chunk = header[12:16]
+        if chunk == b"VP8 ":
+            w, h = struct.unpack("<HH", header[26:30])
+            return (w & 0x3FFF, h & 0x3FFF)
+        if chunk == b"VP8L":
+            b0, b1, b2, b3 = header[21:25]
+            w = 1 + (((b1 & 0x3F) << 8) | b0)
+            h = 1 + (((b3 & 0xF) << 10) | (b2 << 2) | (b1 >> 6))
+            return (w, h)
+        if chunk == b"VP8X":
+            w = 1 + (header[24] | (header[25] << 8) | (header[26] << 16))
+            h = 1 + (header[27] | (header[28] << 8) | (header[29] << 16))
+            return (w, h)
+    except (OSError, struct.error, IndexError):
+        pass
+    return (0, 0)
+
+
 def load_blogs() -> list[dict]:
     blogs = []
     for md_file in sorted(CONTENT_BLOGS.glob("*.md")):
@@ -124,6 +150,13 @@ def load_blogs() -> list[dict]:
         if thumbnail.startswith("/") and not thumbnail.startswith("/static/"):
             thumbnail = "/static" + thumbnail
 
+        thumb_path = STATIC / thumbnail.removeprefix("/static/") if thumbnail else None
+        img_w, img_h = (
+            get_webp_dimensions(thumb_path)
+            if thumb_path and thumb_path.exists()
+            else (0, 0)
+        )
+
         blogs.append(
             {
                 "slug": slug,
@@ -133,6 +166,8 @@ def load_blogs() -> list[dict]:
                 "description": meta.get("description", ""),
                 "author": meta.get("author", "Mohammed Noufal"),
                 "thumbnail": thumbnail,
+                "image_width": img_w or 1200,
+                "image_height": img_h or 630,
                 "category": meta.get("category", "Uncategorized"),
                 "tags": meta.get("tags", []),
                 "content_html": html_content,
@@ -204,6 +239,8 @@ def build_blog_detail_pages(blogs: list[dict]) -> None:
                 "formatted_date": blog["formatted_date"],
                 "category": blog["category"],
                 "thumbnail": blog["thumbnail"],
+                "image_width": blog["image_width"],
+                "image_height": blog["image_height"],
                 "slug": blog["slug"],
                 "content": blog["content_html"],
             },
