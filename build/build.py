@@ -110,6 +110,15 @@ def format_date(date_str: str) -> str:
         return date_str
 
 
+def iso_date(date_str: str) -> str:
+    """Full ISO 8601 datetime with timezone, for JSON-LD datePublished."""
+    try:
+        dt = datetime.strptime(date_str, "%Y-%m-%d")
+        return dt.strftime("%Y-%m-%dT00:00:00+00:00")
+    except ValueError:
+        return date_str
+
+
 def get_webp_dimensions(path: Path) -> tuple[int, int]:
     """Read width/height from a WebP file header without extra deps."""
     try:
@@ -236,6 +245,7 @@ def build_blog_detail_pages(blogs: list[dict]) -> None:
                 "description": blog["description"],
                 "author": blog["author"],
                 "date": blog["date"],
+                "date_iso": iso_date(blog["date"]),
                 "formatted_date": blog["formatted_date"],
                 "category": blog["category"],
                 "thumbnail": blog["thumbnail"],
