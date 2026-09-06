@@ -129,5 +129,9 @@
     render();
   });
 
-  render();
+  // The first page of cards is already server-rendered into #blog-list at
+  // build time (for crawlers / no-JS), and the pagination controls below
+  // it are rebuilt here to match. We only need a full client-side render
+  // once the user actually searches, filters, or paginates — not on load.
+  renderPagination(filteredBlogs().length);
 })();

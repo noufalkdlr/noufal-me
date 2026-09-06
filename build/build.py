@@ -190,6 +190,34 @@ def load_blogs() -> list[dict]:
 # --- Page builders ----------------------------------------------------------
 
 
+def escape_html(text: str) -> str:
+    return (
+        str(text)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def render_blog_card_html(blog: dict) -> str:
+    """Server-rendered markup for one blog card, matching the structure
+    blogs.js builds client-side (renderCard), so Google (and anyone with
+    JS disabled) sees real content and links on first load."""
+    title = escape_html(blog["title"])
+    return (
+        f'<a href="/blogs/{blog["slug"]}/" class="blog-card">'
+        f'<div class="blog-card-thumb"><img src="{escape_html(blog["thumbnail"])}" '
+        f'alt="{title}" loading="lazy" /></div>'
+        '<div class="blog-card-body">'
+        f'<div class="blog-card-meta"><time>{escape_html(blog["formatted_date"])}</time>'
+        f"<span>&bull;</span><span>{escape_html(blog['category'])}</span></div>"
+        f"<h2>{title}</h2>"
+        f'<p class="blog-card-desc">{escape_html(blog["description"])}</p>'
+        "</div></a>"
+    )
+
+
 def build_home_page() -> None:
     src = TEMPLATES / "index.html"
     dst = DIST / "index.html"
@@ -225,7 +253,12 @@ def build_blogs_index(blogs: list[dict]) -> None:
             for b in blogs
         ]
     )
-    html = render_vars(html, {"blogs_json": blogs_json})
+    PER_PAGE = 6
+    first_page_html = "".join(render_blog_card_html(b) for b in blogs[:PER_PAGE])
+
+    html = render_vars(
+        html, {"blogs_json": blogs_json, "blog_cards_ssr": first_page_html}
+    )
 
     out_dir = DIST / "blogs"
     out_dir.mkdir(parents=True, exist_ok=True)
